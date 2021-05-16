@@ -1,19 +1,19 @@
-"""Understanding thread module of python fro python cook book"""
-
-from threading import Thread
+import threading
 from time import sleep
 
 
 def countdown(n, thread=False):
     while n > 1:
-        if thread:
-            print("From Thread running")
+        if not thread:
+            print("calling from method")
         else:
-            print("Plain call")
+            print("calling from thread..........")
         n -= 1
         sleep(2)
 
 
-thread1 = Thread(target=countdown, args=(100, True))
-thread1.start()
-countdown(100)
+thread1 = threading.Thread(target=countdown, args=(100, True), daemon=True)
+# thread1.start()
+# countdown(n=100)
+print(threading.active_count())
+print(threading.current_thread())
