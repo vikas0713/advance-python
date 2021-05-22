@@ -1,24 +1,27 @@
 import asyncio
+from time import sleep
 
 
-async def find_divisible(inrange, div_by):
-    print(f'finding nums in range {inrange} divisible by {div_by}')
-    located = []
-    for i in range(inrange):
-        if i % div_by == 0:
-            located.append(i)
-    return located
+async def counter(n):
+    while n > 1:
+        print(f'{n} is the state')
+        n -= 1
+        sleep(0.5)
+    return n
+
+
+async def simple_counter(n):
+    while n > 1:
+        print(f'simple {n}')
+        n -= 1
+        sleep(0.5)
+    await asyncio.sleep(1)
 
 
 async def main():
-    divs1 = loop.create_task(find_divisible(5080000, 34113))
-    divs2 = loop.create_task(find_divisible(508023, 33))
-    divs3 = loop.create_task(find_divisible(108000, 3413))
-    divs4 = loop.create_task(find_divisible(208000, 3))
-    await asyncio.wait([divs1, divs2, divs3, divs4])
+    task1 = asyncio.create_task(counter(100))
+    task2 = asyncio.create_task(simple_counter(100))
+    value = await task1, task2
+    print(value)
 
-
-if __name__ == "__main__":
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(main())
-    loop.close()
+asyncio.run(main())
